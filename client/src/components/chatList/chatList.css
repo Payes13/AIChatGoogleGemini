@@ -38,7 +38,7 @@
   }
 
   .upgrade {
-    margin-top: auto;                         /* THIS KEEPS IT AT THE BOTTOM */
+    margin-top: auto;                        
     display: flex;
     align-items: center;
     gap: 10px;
