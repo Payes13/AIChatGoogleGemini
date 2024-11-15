@@ -28,8 +28,8 @@
     h1 {
       font-size: 64px;
       background: linear-gradient(to right, #217BFE, #E55571);
-      background-clip: text;                           /* THIS */
-      -webkit-background-clip: text;                   /* THIS IS FOR CHROME */
+      background-clip: text;                           
+      -webkit-background-clip: text;                   
       color: transparent; 
     }
   }
