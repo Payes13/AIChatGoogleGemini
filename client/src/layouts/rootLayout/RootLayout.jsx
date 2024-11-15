@@ -16,7 +16,6 @@ const queryClient = new QueryClient();
 
 const RootLayout = () => {
   return (
-    // ADDED HERE INSTEAD OF main.jsx BC WE ARE USING react-router-dom
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <QueryClientProvider client={queryClient}>
         <div className='rootLayout'>
