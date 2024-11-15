@@ -23,7 +23,6 @@ const NewPrompt = ({ data }) => {
   const queryClient = useQueryClient();
 
   const chat = model.startChat({
-    // THIS IS HOW THE AI REMEMBERS THE CONVERSATION    
     history: data?.history?.length > 0 
       ? data.history.map(({ role, parts }) => ({
           role,
@@ -32,7 +31,6 @@ const NewPrompt = ({ data }) => {
       : [],
 
     generationConfig: {
-      // maxOutputTokens: 100,
     },
   });
 
@@ -46,7 +44,6 @@ const NewPrompt = ({ data }) => {
       return fetch(`${import.meta.env.VITE_API_URL}/api/chats/${data._id}`, {
         method: "PUT",
         credentials: "include",
-        // FORMAT OF WHAT WE ARE GOING TO SEND TO THE BE
         headers: {
           "Content-Type": "application/json",
         },
@@ -59,7 +56,6 @@ const NewPrompt = ({ data }) => {
     },
     onSuccess: () => {
       queryClient
-        // THANKS TO THIS THE NEW messages IN THE CHAT REMAIN IN DISPLAY BC THEY ARE NO LONGER prompt AND answer FROM THE AI BUT THEY ARE COMING FROM THE DB
         .invalidateQueries({ queryKey: ["chat", data._id] })
         .then(() => {
           formRef.current.reset();
@@ -111,15 +107,10 @@ const NewPrompt = ({ data }) => {
     add(text, false);
   };
 
-  // IN PRODUCTION WE DON'T NEED IT
-  // THE useEffect BELOW IS GOING TO BE RUN TWICE,THIS OCCURS BC IN development WE ARE USING <strict mode> AND MAKES YOUR app RUN TWICE, TO PREVENT THIS WE USE THIS useRef
-  // WE ALSO HAVE TO USE IT BC WE ARE USING streaming IN OUR AI MODEL
   const hasRun = useRef(false);
 
-  // WHEN WE START A NEW chat FROM dashboardPage AND WE HIT enter THE AI DOESN'T RESPOND BC WE ONLY TRIGGER OUR function ONLY WHEN WE SUBMIT THE chatPage form
   useEffect(() => {
     if (!hasRun.current) {
-      // WHEN VERIFY IF WE ONLY HAVE ONE message IN THE CHAT THAT MEANS IT IS ONLY THE user's prompt, THEN WE CAN GENERATE OUR ANSWER AND SEND IT TO THE DB, THAT IS WHY WE IMPLEMENT isInitial
       if (data?.history?.length === 1) {
         add(data.history[0].parts[0].text, true);
       }
@@ -129,7 +120,6 @@ const NewPrompt = ({ data }) => {
 
   return (
     <>
-      {/* ADD NEW CHAT */}
       {img.isLoading && <div className="">Loading...</div>}
       {img.dbData?.filePath && (
         <IKImage
