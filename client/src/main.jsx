@@ -20,7 +20,6 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        // sign-in/* MEANS EVERY CHILDREN OF THIS PAGE
         path: '/sign-in/*',
         element: <SignInPage />,
       },
@@ -41,10 +40,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-      // {
-      //   path: '/chat',
-      //   element: <ChatPage />,
-      // },
     ],
   }
 ])
