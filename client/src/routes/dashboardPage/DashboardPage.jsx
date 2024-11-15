@@ -10,7 +10,6 @@ const DashboardPage = () => {
   const navigate = useNavigate();
 
   const mutation = useMutation({
-    // HE MADE IT WITHOUT USING async/await
     mutationFn: async (text) => {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/chats`, {
         method: "POST",
@@ -23,9 +22,7 @@ const DashboardPage = () => {
       
       return await res.json();
     },
-    // WHAT THE API WILL RETURN IF SUCCESSFUL
     onSuccess: (id) => {
-      // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["userChats"] });
       navigate(`/dashboard/chats/${id}`);
     },
@@ -39,20 +36,6 @@ const DashboardPage = () => {
     if(!text) return
 
     mutation.mutate(text);
-
-    // NO SE POR QUE ESTO ESTABA AQUI R/ BC WE WERE USING PLAIN fetch AND LATER WE STARTED TO USE useQuery R.2/ BC HE WANTED TO TEST THE ENDPOINT REAL QUICK
-    // await fetch('http://localhost:4000/api/chats', {
-    //   method: 'POST',
-    //   // BC WE ARE GOING TO SEND cookies AND THE user IN IT
-    //   credentials: 'include',
-    //   // FORMAT OF WHAT WE ARE GOING TO SEND TO THE BE
-    //   headers: { 
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({ text }),
-    // })
-    // .then(res => res.json())
-    // .then(data => setImg({ ...img, aiData: data }))
   }
 
   return (
