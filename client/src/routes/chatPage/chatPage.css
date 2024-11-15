@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* BC IN newPrompt.css WE USE position: absolute */
   position: relative;
 
   .wrapper {
